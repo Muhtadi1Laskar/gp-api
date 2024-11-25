@@ -11,18 +11,18 @@ type Person struct {
 }
 
 func Handler(w http.ResponseWriter, r *http.Request) { 
-    person := Person{  Name: "John",  Age: 30 } 
+	person := Person{  Name: "John",  Age: 30, } 
 
-    // Encoding - 2 step . NewEncoder and Encode
-    encoder := json.NewEncoder(w) 
-
-    err := encoder.Encode(person) 
+    // Encoding - One step
+    jsonStr, err := json.Marshal(person) 
 
     if err != nil {  
         http.Error(w, err.Error(), http.StatusInternalServerError)  
-
         return 
-   }}
+    } 
+
+    w.Write(jsonStr)
+}
 
 func Main() { 
    http.HandleFunc("/", Handler) 
