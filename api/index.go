@@ -10,6 +10,7 @@ import (
 
 type RequestBody struct {
 	Message string `json:"message"`
+	Hash string `json:"hash"`
 }
 
 type ResponseBody struct {
@@ -24,7 +25,12 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	hashedData := hashes.HashData(requestBody.Message)
+	hashedData, err := hashes.HashData(requestBody.Message, requestBody.Hash)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
 	response := ResponseBody{
 		Hash: hashedData,
 	}
