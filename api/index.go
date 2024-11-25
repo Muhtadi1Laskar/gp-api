@@ -3,6 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
+	hashes "go-api/Hashes"
 	"io"
 	"net/http"
 )
@@ -23,13 +24,12 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	hashedData := hashes.HashData(requestBody.Message)
 	response := ResponseBody{
-		Hash: requestBody.Message,
+		Hash: hashedData,
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(response)
+	writeJSONResponse(w, http.StatusOK, response)
 }
 
 func readRequestBody(r *http.Request, target interface{}) error {
@@ -43,6 +43,12 @@ func readRequestBody(r *http.Request, target interface{}) error {
 		return fmt.Errorf("unable to read request body: %v", err)
 	}
 	return nil
+}
+
+func writeJSONResponse(w http.ResponseWriter, statusCode int, response interface{}) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(statusCode)
+	json.NewEncoder(w).Encode(response)
 }
 
 func Main() {
