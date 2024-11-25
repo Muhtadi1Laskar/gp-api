@@ -1,30 +1,51 @@
 package handler
- 
-import ( 
-    "encoding/json"
-    "net/http"
+
+import (
+	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
 )
 
-type Person struct { 
-    Name string `json:"name"` 
-    Age int `json:"age"`
+type RequestBody struct {
+	Message string `json:"message"`
 }
 
-func Handler(w http.ResponseWriter, r *http.Request) { 
-	person := Person{  Name: "John",  Age: 30, } 
-
-    // Encoding - One step
-    jsonStr, err := json.Marshal(person) 
-
-    if err != nil {  
-        http.Error(w, err.Error(), http.StatusInternalServerError)  
-        return 
-    } 
-
-    w.Write(jsonStr)
+type ResponseBody struct {
+	Hash string `json:"hash"`
 }
 
-func Main() { 
-   http.HandleFunc("/", Handler) 
-   http.ListenAndServe(":8080", nil)
+func Handler(w http.ResponseWriter, r *http.Request) {
+	var requestBody RequestBody
+
+	if err := readRequestBody(r, &requestBody); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	response := ResponseBody{
+		Hash: requestBody.Message,
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(response)
+}
+
+func readRequestBody(r *http.Request, target interface{}) error {
+	reqBody, err := io.ReadAll(r.Body)
+	if err != nil {
+		return fmt.Errorf("unable to read request body: %v", err)
+	}
+	defer r.Body.Close()
+
+	if err := json.Unmarshal(reqBody, target); err != nil {
+		return fmt.Errorf("unable to read request body: %v", err)
+	}
+	return nil
+}
+
+func Main() {
+	http.HandleFunc("/", Handler)
+	http.ListenAndServe(":8080", nil)
 }
