@@ -8,6 +8,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"hash"
+	"strings"
 
 	"golang.org/x/crypto/blake2b"
 	"golang.org/x/crypto/blake2s"
@@ -40,8 +41,9 @@ func getHashFunc() map[string]func() (hash.Hash, error) {
 }
 
 func HashData(message, hashName string) (string, error) {
+	formattedHashName := strings.ToLower(hashName)
 	hashList := getHashFunc()
-	hashFunc, exists := hashList[hashName]
+	hashFunc, exists := hashList[formattedHashName]
 	if !exists {
 		return "", fmt.Errorf("unsupported hash algorithm: %s", hashName)
 	}

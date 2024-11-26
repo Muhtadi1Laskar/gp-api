@@ -3,7 +3,6 @@ package handlers
 import (
 	"go-api/Hashes"
 	"net/http"
-	"strings"
 )
 
 type HashRequestBody struct {
@@ -22,7 +21,7 @@ type VerifyHashRequest struct {
 }
 
 type VerifyHashResponse struct {
-	Altered bool `json:"altered"`
+	IsSame bool `json:"issame"`
 }
 
 func HashData(w http.ResponseWriter, r *http.Request) {
@@ -33,8 +32,7 @@ func HashData(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	formattedStr := strings.ToLower(requestBody.Hash)
-	hashedData, err := hashes.HashData(requestBody.Message, formattedStr)
+	hashedData, err := hashes.HashData(requestBody.Message, requestBody.Hash)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -55,14 +53,14 @@ func VerifyData(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	isAltered, err := hashes.VerifyHash(requestBody.OldHash, requestBody.Message, requestBody.Hash)
+	changeStatus, err := hashes.VerifyHash(requestBody.OldHash, requestBody.Message, requestBody.Hash)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	responseBody := VerifyHashResponse {
-		Altered: isAltered,
+		IsSame: changeStatus,
 	}
 
 	writeJSONResponse(w, http.StatusOK, responseBody)
