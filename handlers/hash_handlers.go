@@ -3,6 +3,7 @@ package handlers
 import (
 	"go-api/Hashes"
 	"net/http"
+	"strings"
 )
 
 type HashRequestBody struct {
@@ -22,7 +23,8 @@ func HashData(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	hashedData, err := hashes.HashData(requestBody.Message, requestBody.Hash)
+	formattedStr := strings.ToLower(requestBody.Hash)
+	hashedData, err := hashes.HashData(requestBody.Message, formattedStr)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
