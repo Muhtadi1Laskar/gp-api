@@ -17,7 +17,7 @@ import (
 )
 
 func getHashFunc() map[string]func() (hash.Hash, error) {
-	return map[string]func() (hash.Hash, error) {
+	return map[string]func() (hash.Hash, error){
 		"md5":         func() (hash.Hash, error) { return md5.New(), nil },
 		"sha256":      func() (hash.Hash, error) { return sha256.New(), nil },
 		"sha1":        func() (hash.Hash, error) { return sha1.New(), nil },
@@ -45,16 +45,24 @@ func HashData(message, hashName string) (string, error) {
 	if !exists {
 		return "", fmt.Errorf("unsupported hash algorithm: %s", hashName)
 	}
-	
 
 	hasher, err := hashFunc()
 	if err != nil {
 		return "", fmt.Errorf("failed to create hash instance: %v", err)
 	}
-	
+
 	hasher.Write([]byte(message))
 
 	hashedBytes := hasher.Sum(nil)
 
 	return hex.EncodeToString(hashedBytes), nil
+}
+
+func VerifyHash(originalHash, message, hashName string) (bool, error) {
+	newHash, err := HashData(message, hashName)
+	if err != nil {
+		return false, err
+	}
+
+	return newHash == originalHash, nil
 }
