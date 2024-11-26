@@ -5,11 +5,11 @@ import (
 	"net/http"
 )
 
-func Handler(w http.ResponseWriter, r *http.Request) {
+func HandlerOne(w http.ResponseWriter, r *http.Request) {
 	handlers.HashData(w, r)
 }
 
 func Main() {
-	http.HandleFunc("/", Handler)
+	http.HandleFunc("/hash", HandlerOne)
 	http.ListenAndServe(":8080", nil)
 }
