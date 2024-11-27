@@ -27,13 +27,13 @@ func EncryptAES(w http.ResponseWriter, r *http.Request) {
 	var requestBody AESRequestBody
 
 	if err := readRequestBody(r, &requestBody); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		writeError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	cipherText, err := ciphers.AESEncrypt(requestBody.Message, requestBody.Key)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		writeError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 
@@ -54,7 +54,7 @@ func DecryptAES(w http.ResponseWriter, r *http.Request) {
 
 	plaintText, err := ciphers.AESDecrypt(requestBody.CipherText, requestBody.Key)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		writeError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 

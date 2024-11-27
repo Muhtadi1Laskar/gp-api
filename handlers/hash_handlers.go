@@ -28,13 +28,13 @@ func HashData(w http.ResponseWriter, r *http.Request) {
 	var requestBody HashRequestBody
 
 	if err := readRequestBody(r, &requestBody); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		writeError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	hashedData, err := hashes.HashData(requestBody.Message, requestBody.Hash)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		writeError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 
@@ -49,13 +49,13 @@ func VerifyData(w http.ResponseWriter, r *http.Request) {
 	var requestBody VerifyHashRequest
 
 	if err := readRequestBody(r, &requestBody); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		writeError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	changeStatus, err := hashes.VerifyHash(requestBody.OldHash, requestBody.Message, requestBody.Hash)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		writeError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 

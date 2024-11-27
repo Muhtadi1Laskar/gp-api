@@ -17,7 +17,7 @@ type XORResponseBody struct {
 func XOREncrypt(w http.ResponseWriter, r *http.Request) {
 	var requestBody XORRequestBody
 	if err := readRequestBody(r, &requestBody); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		writeError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 
@@ -33,13 +33,13 @@ func XOREncrypt(w http.ResponseWriter, r *http.Request) {
 func XORDecrypt(w http.ResponseWriter, r *http.Request) {
 	var requestBody XORRequestBody
 	if err := readRequestBody(r, &requestBody); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		writeError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	plainText, err := ciphers.DecryptXOR(requestBody.Message, requestBody.Key)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		writeError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 
