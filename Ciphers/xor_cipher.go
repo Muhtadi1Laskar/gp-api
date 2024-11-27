@@ -6,12 +6,13 @@ import (
 )
 
 func EncryptXOR(plainText, key string) string {
-	var output string
+	output := make([]byte, len(plainText))
 
 	for i := 0; i < len(plainText); i++ {
-		output += string(plainText[i] ^ key[i%len(key)])
+		output[i] = plainText[i] ^ key[i % len(key)]
 	}
-	return hex.EncodeToString([]byte(output))
+
+	return hex.EncodeToString(output)
 }
 
 func DecryptXOR(cipherText, key string) (string, error) {
@@ -19,11 +20,12 @@ func DecryptXOR(cipherText, key string) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("failed to convert hex string to hex bytes: %v", err)
 	}
-	var plainText string = string(hexBytes)
-	var output string
 
-	for i := 0; i < len(plainText); i++ {
-		output += string(plainText[i] ^ key[i%len(key)]) 
+	output := make([]byte, len(hexBytes))
+
+	for i := 0; i < len(hexBytes); i++ {
+		output[i] = hexBytes[i] ^ key[i % len(key)]
 	}
-	return output, nil
+
+	return string(output), nil
 }
