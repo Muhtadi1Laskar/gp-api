@@ -15,7 +15,7 @@ type HashResponseBody struct {
 }
 
 type VerifyHashRequest struct {
-	OldHash string `json:"oldhash" validate:"required"`
+	OldHash string `json:"oldHash" validate:"required"`
 	Message string `json:"message" validate:"required"`
 	Hash string `json:"hash" validate:"required"`
 }

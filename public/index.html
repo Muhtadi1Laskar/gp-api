@@ -1,13 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rendered from Go</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cryptographic API Suite</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to top, #0072ff, #00c6ff);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    .container {
+      max-width: 800px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #f1f1f1;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+      text-align: left;
+    }
+
+    ul li {
+      background: rgba(0, 0, 0, 0.2);
+      margin: 0.5rem 0;
+      padding: 0.8rem 1rem;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    ul li:before {
+      content: "✔️ ";
+      margin-right: 0.5rem;
+      color: #00ffd1;
+    }
+
+    a {
+      color: #00ffd1;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      color: #ffda79;
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #d9d9d9;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      ul li {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="content">
-        <a href="/api/index">Click here to see JSON</a>
-    </div>
+  <div class="container">
+    <h1>Cryptographic API Suite</h1>
+    <p>
+      Explore a simple yet powerful API for encryption and hashing, making cryptography accessible for developers. Powered by Golang!
+    </p>
+    <h2>Features:</h2>
+    <ul>
+      <li>Hashing algorithms like SHA-256, MD5, and more</li>
+      <li>Symmetric encryption using AES</li>
+      <li>Classic ciphers: XOR, Caesar, and Vigenère</li>
+    </ul>
+    <p>
+      <a href="#">Explore the Documentation</a> and start integrating cryptographic solutions today.
+    </p>
+    <footer>
+      Built with ❤️ in Go | Secure your future with cryptography.
+    </footer>
+  </div>
 </body>
+
 </html>
