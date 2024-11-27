@@ -1,7 +1,12 @@
 package ciphers
 
-func CeaserCipher(data string, key int) string {
+func EncryptCaeser(data string, key int) string {
 	var result []rune
+
+	key = key % 26
+	if key < 0 {
+		key += 26
+	}
 
 	for _, char := range data {
 		if char >= 'A' && char <= 'Z' {

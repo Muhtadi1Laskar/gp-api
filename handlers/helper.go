@@ -25,7 +25,6 @@ func readRequestBody(r *http.Request, target interface{}) error {
 	}
 
 	validate := validator.New()
-
 	err = validate.Struct(target)
 	if err != nil {
 		return fmt.Errorf("validation error: %w", err)
