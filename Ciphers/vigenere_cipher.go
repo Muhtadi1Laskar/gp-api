@@ -20,20 +20,21 @@ func VigenereCipher(data, key string, encrypt bool) string {
 
 	for i, r := range data {
 		if !unicode.IsLetter(r) {
-			result[r] = r
+			result[i] = r
 			continue
 		}
 
-		shift := keyShifts[i % len(keyShifts)]
+		shift := keyShifts[i%len(keyShifts)]
 		if !encrypt {
 			shift = -shift
 		}
 
 		if unicode.IsUpper(r) {
-			result[i] = 'A' + (r - 'A' + rune(shift) + 26) % 26
+			result[i] = 'A' + (r-'A'+rune(shift)+26)%26
 		} else if unicode.IsLower(r) {
-			result[i] = 'a' + (r - 'a' + rune(shift) + 26) % 26
+			result[i] = 'a' + (r-'a'+rune(shift)+26)%26
 		}
 	}
+
 	return string(result)
 }
