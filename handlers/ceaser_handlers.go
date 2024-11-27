@@ -26,9 +26,9 @@ func CeaserCipher(w http.ResponseWriter, r *http.Request) {
 	var cipher string
 	switch strings.ToLower(requestBody.Type) {
 	case "encrypt":
-		cipher = ciphers.EncryptCaeser(requestBody.Message, -requestBody.Key)
-	case "decrypt":
 		cipher = ciphers.EncryptCaeser(requestBody.Message, requestBody.Key)
+	case "decrypt":
+		cipher = ciphers.EncryptCaeser(requestBody.Message, -requestBody.Key)
 	default:
 		writeError(w, http.StatusBadRequest, "Invalid type: must be 'encrypt' or 'decrypt'")
 		return
