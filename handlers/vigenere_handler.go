@@ -6,18 +6,18 @@ import (
 	"strings"
 )
 
-type CeaserRequestBody struct {
+type VigenereRequestBody struct {
 	Message string `json:"message" validate:"required"`
-	Key     int    `json:"key" validate:"required"`
+	Key     string    `json:"key" validate:"required"`
 	Type    string `json:"type" validate:"required"`
 }
 
-type CeaserResponseBody struct {
+type VingereResponseBody struct {
 	Message string `json:"message"`
 }
 
-func CeaserCipherHandler(w http.ResponseWriter, r *http.Request) {
-	var requestBody CeaserRequestBody
+func VigenereCipherHandler(w http.ResponseWriter, r *http.Request) {
+	var requestBody VigenereRequestBody
 	if err := readRequestBody(r, &requestBody); err != nil {
 		writeError(w, http.StatusBadRequest, err.Error())
 		return
@@ -26,9 +26,9 @@ func CeaserCipherHandler(w http.ResponseWriter, r *http.Request) {
 	var cipher string
 	switch strings.ToLower(requestBody.Type) {
 	case "encrypt":
-		cipher = ciphers.EncryptCaeser(requestBody.Message, requestBody.Key)
+		cipher = ciphers.VigenereCipher(requestBody.Message, requestBody.Key, true)
 	case "decrypt":
-		cipher = ciphers.EncryptCaeser(requestBody.Message, -requestBody.Key)
+		cipher = ciphers.VigenereCipher(requestBody.Message, requestBody.Key, false)
 	default:
 		writeError(w, http.StatusBadRequest, "Invalid type: must be 'encrypt' or 'decrypt'")
 		return

@@ -11,7 +11,7 @@ func main() {
 	http.HandleFunc("/aes/decrypt", handlers.DecryptAES)
 	http.HandleFunc("/cipher/xor", handlers.XOREncrypt)
 	http.HandleFunc("/cipher/xorDecrypt", handlers.XORDecrypt)
-	http.HandleFunc("/cipher/ceaserCipher", handlers.CeaserCipher)
+	http.HandleFunc("/cipher/ceaserCipher", handlers.CeaserCipherHandler)
 	fmt.Println("Server running on 5000")
 	http.ListenAndServe(":5000", nil)
 }

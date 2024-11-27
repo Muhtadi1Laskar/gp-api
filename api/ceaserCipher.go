@@ -6,6 +6,6 @@ import (
 )
 
 func HandlerSeven(w http.ResponseWriter, r *http.Request) {
-	handlers.CeaserCipher(w, r)
+	handlers.CeaserCipherHandler(w, r)
 }
 
