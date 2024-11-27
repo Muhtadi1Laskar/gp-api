@@ -6,8 +6,8 @@ import (
 )
 
 type HashRequestBody struct {
-	Message string `json:"message"`
-	Hash    string `json:"hash"`
+	Message string `json:"message" validate:"required"`
+	Hash    string `json:"hash" validate:"required"`
 }
 
 type HashResponseBody struct {
@@ -15,9 +15,9 @@ type HashResponseBody struct {
 }
 
 type VerifyHashRequest struct {
-	OldHash string `json:"oldhash"`
-	Message string `json:"message"`
-	Hash string `json:"hash"`
+	OldHash string `json:"oldhash" validate:"required"`
+	Message string `json:"message" validate:"required"`
+	Hash string `json:"hash" validate:"required"`
 }
 
 type VerifyHashResponse struct {

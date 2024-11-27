@@ -6,13 +6,13 @@ import (
 )
 
 type AESRequestBody struct {
-	Message string `json:"message"`
-	Key string `json:"key"`
+	Message string `json:"message" validate:"required"`
+	Key string `json:"key" validate:"required"`
 }
 
 type AESDecryptRequest struct {
-	CipherText string `json:"ciphertext"`
-	Key string `json:"key"`
+	CipherText string `json:"ciphertext" validate:"required"`
+	Key string `json:"key" validate:"required"`
 }
 
 type AESResponseBody struct {
