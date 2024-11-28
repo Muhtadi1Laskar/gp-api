@@ -8,6 +8,6 @@ import (
 func HandlerThree(w http.ResponseWriter, r *http.Request) {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/api/aesDecrypt", handlers.DecryptAES)
+	mux.HandleFunc("/api/aesEncrypt", handlers.EncryptAES)
 	handlers.EnableCORS(mux).ServeHTTP(w, r)
 }

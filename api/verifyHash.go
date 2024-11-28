@@ -8,6 +8,6 @@ import (
 func HandlerFour(w http.ResponseWriter, r *http.Request) {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/api/verifyData", handlers.VerifyData)
+	mux.HandleFunc("/api/verifyHash", handlers.VerifyData)
 	handlers.EnableCORS(mux).ServeHTTP(w, r)
 }
