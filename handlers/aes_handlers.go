@@ -9,7 +9,7 @@ import (
 type AESRequestBody struct {
 	Message string `json:"message" validate:"required"`
 	Key     string `json:"key" validate:"required"`
-	Type    string `json:"type" validate: "required"`
+	Type    string `json:"type" validate:"required"`
 }
 
 type AESResponseBody struct {
