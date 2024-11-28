@@ -8,6 +8,6 @@ import (
 func HandlerFive(w http.ResponseWriter, r *http.Request) {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/api/xorEncrypt", handlers.CipherXOR)
+	mux.HandleFunc("/api/xorCipher", handlers.CipherXOR)
 	handlers.EnableCORS(mux).ServeHTTP(w, r)
 }
