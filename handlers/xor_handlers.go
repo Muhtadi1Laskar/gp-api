@@ -3,48 +3,45 @@ package handlers
 import (
 	ciphers "go-api/Ciphers"
 	"net/http"
+	"strings"
 )
 
 type XORRequestBody struct {
 	Message string `json:"message" validate:"required"`
 	Key     string `json:"key" validate:"required"`
+	Type     string `json:"type" validate:"required"`
 }
 
 type XORResponseBody struct {
 	Message string `json:"message"`
 }
 
-func XOREncrypt(w http.ResponseWriter, r *http.Request) {
+func CipherXOR(w http.ResponseWriter, r *http.Request) {
 	var requestBody XORRequestBody
 	if err := readRequestBody(r, &requestBody); err != nil {
 		writeError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	cipherText := ciphers.EncryptXOR(requestBody.Message, requestBody.Key)
-
-	responseBody := XORResponseBody{
-		Message: cipherText,
-	}
-
-	writeJSONResponse(w, http.StatusOK, responseBody)
-}
-
-func XORDecrypt(w http.ResponseWriter, r *http.Request) {
-	var requestBody XORRequestBody
-	if err := readRequestBody(r, &requestBody); err != nil {
-		writeError(w, http.StatusInternalServerError, err.Error())
+	var cipherText string
+	var err error
+	switch strings.ToLower(requestBody.Type) {
+	case "encrypt":
+		cipherText = ciphers.EncryptXOR(requestBody.Message, requestBody.Key)
+	case "decrypt":
+		cipherText, err = ciphers.DecryptXOR(requestBody.Message, requestBody.Key)
+	default:
+		writeError(w, http.StatusBadRequest, "Invalid type: must be 'encrypt' or 'decrypt'")
 		return
 	}
 
-	plainText, err := ciphers.DecryptXOR(requestBody.Message, requestBody.Key)
 	if err != nil {
 		writeError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	responseBody := XORResponseBody{
-		Message: plainText,
+		Message: cipherText,
 	}
 
 	writeJSONResponse(w, http.StatusOK, responseBody)

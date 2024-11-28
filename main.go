@@ -25,10 +25,8 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/hash", handlers.HashData)
-	mux.HandleFunc("/aes/encrypt", handlers.EncryptAES)
-	mux.HandleFunc("/aes/decrypt", handlers.DecryptAES)
-	mux.HandleFunc("/cipher/xor", handlers.XOREncrypt)
-	mux.HandleFunc("/cipher/xorDecrypt", handlers.XORDecrypt)
+	mux.HandleFunc("/aes/encrypt", handlers.CipherAES)
+	mux.HandleFunc("/cipher/xor", handlers.CipherXOR)
 	mux.HandleFunc("/cipher/ceaserCipher", handlers.CeaserCipherHandler)
 	mux.HandleFunc("/cipher/vignereCipher", handlers.VigenereCipherHandler)
 	fmt.Println("Server running on 5000")
