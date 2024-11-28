@@ -8,8 +8,8 @@ import (
 
 type AESRequestBody struct {
 	Message string `json:"message" validate:"required"`
-	Key string `json:"key" validate:"required"`
-	Type string `json:"type" validate: "required"`
+	Key     string `json:"key" validate:"required"`
+	Type    string `json:"type" validate: "required"`
 }
 
 type AESResponseBody struct {
@@ -23,7 +23,7 @@ func CipherAES(w http.ResponseWriter, r *http.Request) {
 		writeError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
-	
+
 	var cipherText string
 	var err error
 	switch strings.ToLower(requestBody.Type) {
@@ -33,6 +33,7 @@ func CipherAES(w http.ResponseWriter, r *http.Request) {
 		cipherText, err = ciphers.AESDecrypt(requestBody.Message, requestBody.Key)
 	default:
 		writeError(w, http.StatusBadRequest, "Invalid type: must be 'encrypt' or 'decrypt'")
+		return
 	}
 
 	if err != nil {
