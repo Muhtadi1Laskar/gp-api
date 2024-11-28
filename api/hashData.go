@@ -8,7 +8,7 @@ import (
 func HandlerOne(w http.ResponseWriter, r *http.Request) {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("", handlers.HashData)
+	mux.HandleFunc("/api/hashData", handlers.HashData)
 	handlers.EnableCORS(mux).ServeHTTP(w, r)
 	// handlers.HashData(w, r)
 }
