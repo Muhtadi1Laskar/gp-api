@@ -19,3 +19,10 @@ func HandlerOne(w http.ResponseWriter, r *http.Request) {
 	handlers.EnableCORS(mux).ServeHTTP(w, r)
 	// handlers.HashData(w, r)
 }
+
+func HandlerTwo(w http.ResponseWriter, r *http.Request) {
+	mux := http.NewServeMux()
+
+	mux.HandleFunc("/api/aesEncrypt", handlers.EncryptAES)
+	handlers.EnableCORS(mux).ServeHTTP(w, r)
+}
