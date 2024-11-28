@@ -3,12 +3,13 @@ package handlers
 import (
 	ciphers "go-api/Ciphers"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
 type CeaserRequestBody struct {
 	Message string `json:"message" validate:"required"`
-	Key     int    `json:"key" validate:"required"`
+	Key     string    `json:"key" validate:"required"`
 	Type    string `json:"type" validate:"required"`
 }
 
@@ -23,12 +24,14 @@ func CeaserCipherHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	intKey, _ := strconv.Atoi(requestBody.Key)
+
 	var cipher string
 	switch strings.ToLower(requestBody.Type) {
 	case "encrypt":
-		cipher = ciphers.EncryptCaeser(requestBody.Message, requestBody.Key)
+		cipher = ciphers.EncryptCaeser(requestBody.Message, intKey)
 	case "decrypt":
-		cipher = ciphers.EncryptCaeser(requestBody.Message, -requestBody.Key)
+		cipher = ciphers.EncryptCaeser(requestBody.Message, -intKey)
 	default:
 		writeError(w, http.StatusBadRequest, "Invalid type: must be 'encrypt' or 'decrypt'")
 		return
