@@ -16,7 +16,7 @@ type AESDecryptRequest struct {
 }
 
 type AESResponseBody struct {
-	CipherText string `json:"ciphertext"`
+	Message string `json:"message"`
 }
 
 type AESDecryptResponse struct {
@@ -38,7 +38,7 @@ func EncryptAES(w http.ResponseWriter, r *http.Request) {
 	}
 
 	responseBody := AESResponseBody{
-		CipherText: cipherText,
+		Message: cipherText,
 	}
 
 	writeJSONResponse(w, http.StatusOK, responseBody)
