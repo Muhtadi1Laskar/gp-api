@@ -9,6 +9,15 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
+type KeyLessCipherRequest struct {
+	Message string `json:"message"`
+	Type string `json:"type"`
+}
+
+type KeyLessCipherResponse struct {
+	Message string `json:"message"`
+}
+
 type ErrorResponse struct {
 	Error string `json:"error"`
 }

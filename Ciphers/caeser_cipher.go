@@ -18,11 +18,9 @@ func EncryptCaeser(data string, key int) string {
 			if unicode.IsLower(char) {
 				offset = 'a'
 			}
-			// Perform the shift and wrap around the alphabet.
 			newChar := (char-offset+rune(key)+26)%26 + offset
 			result.WriteRune(newChar)
 		} else {
-			// Leave non-alphabetic characters as they are.
 			result.WriteRune(char)
 		}
 	}
