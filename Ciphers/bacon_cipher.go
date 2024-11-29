@@ -39,7 +39,7 @@ func BaconCipherEncrypt(data string) string {
 			result.WriteString(letter + " ")
 		}
 	}
-	return result.String()
+	return strings.TrimSpace(result.String())
 }
 
 func BaconCipherDecrypt(data string) (string, error) {
