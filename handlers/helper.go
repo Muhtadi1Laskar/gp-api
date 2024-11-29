@@ -10,7 +10,7 @@ import (
 )
 
 type KeyLessCipherRequest struct {
-	Message string `json:"message"`
+	Message string `json:"message" validate:"required"`
 	Type string `json:"type"`
 }
 

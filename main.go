@@ -30,6 +30,7 @@ func main() {
 	mux.HandleFunc("/cipher/ceaserCipher", handlers.CeaserCipherHandler)
 	mux.HandleFunc("/cipher/vignereCipher", handlers.VigenereCipherHandler)
 	mux.HandleFunc("/cipher/atbashCipher", handlers.AtbashHandler)
+	mux.HandleFunc("/cipher/rot13Cipher", handlers.Rot13Handler)
 	fmt.Println("Server running on 5000")
 	http.ListenAndServe(":5000", enableCORS(mux))
 }
