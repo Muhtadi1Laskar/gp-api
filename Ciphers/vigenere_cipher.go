@@ -19,33 +19,29 @@ func VigenereCipher(data, key string, encrypt bool) string {
 	key = formatKey(key)
 	keyShifts := make([]int, len(key))
 	for i, r := range key {
-		if unicode.IsUpper(r) {
-			keyShifts[i] = int(r - 'A')
-		} else if unicode.IsLower(r) {
-			keyShifts[i] = int(r - 'a')
-		} else {
-			keyShifts[i] = 0
-		}
+		keyShifts[i] = int(r - 'A')
 	}
 
 	result := make([]rune, len(data))
 
-	for i, r := range data {
-		if !unicode.IsLetter(r) {
-			result[i] = r
+	for i, j := 0, 0; i < len(data); i++ {
+		char := rune(data[i])
+		if !unicode.IsLetter(char) {
+			result[i] = char
 			continue
 		}
 
-		shift := keyShifts[i%len(keyShifts)]
+		shift := keyShifts[j%len(keyShifts)]
 		if !encrypt {
 			shift = -shift
 		}
 
-		if unicode.IsUpper(r) {
-			result[i] = 'A' + (r-'A'+rune(shift)+26)%26
-		} else if unicode.IsLower(r) {
-			result[i] = 'a' + (r-'a'+rune(shift)+26)%26
+		if unicode.IsUpper(char) {
+			result[i] = 'A' + (char-'A'+rune(shift)+26)%26
+		} else {
+			result[i] = 'a' + (char-'a'+rune(shift)+26)%26
 		}
+		j++
 	}
 
 	return string(result)
