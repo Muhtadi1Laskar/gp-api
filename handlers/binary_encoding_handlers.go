@@ -20,7 +20,7 @@ func BinaryEncoderHander(w http.ResponseWriter, r *http.Request) {
 	case "encrypt": 
 		encodedString = Encoding.TextToBinary(requestBody.Message)
 	case "decrypt":
-		encodedString, err = Encoding.BinaryToText(requestBody.Type)
+		encodedString, err = Encoding.BinaryToText(requestBody.Message)
 	default:
 		writeError(w, http.StatusBadRequest, "Invalid type: must be 'encrypt' or 'decrypt'")
 		return 
