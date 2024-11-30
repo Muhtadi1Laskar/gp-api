@@ -4,7 +4,19 @@ import (
 	"unicode"
 )
 
+func formatKey(key string) string {
+	formatted := make([]rune, len(key))
+
+	for _, char := range key {
+		if unicode.IsLetter(char) {
+			formatted = append(formatted, unicode.ToUpper(char))
+		}
+	}
+	return string(formatted)
+}
+
 func VigenereCipher(data, key string, encrypt bool) string {
+	key = formatKey(key)
 	keyShifts := make([]int, len(key))
 	for i, r := range key {
 		if unicode.IsUpper(r) {
