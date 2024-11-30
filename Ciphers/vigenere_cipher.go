@@ -5,7 +5,7 @@ import (
 )
 
 func formatKey(key string) string {
-	formatted := make([]rune, len(key))
+	formatted := make([]rune, 0, len(key))
 
 	for _, char := range key {
 		if unicode.IsLetter(char) {
