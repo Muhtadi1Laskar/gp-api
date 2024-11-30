@@ -8,6 +8,6 @@ import (
 func HandlerBase64(w http.ResponseWriter, r *http.Request) {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/api/encodeBase64", handlers.BaseEncoderHandler)
+	mux.HandleFunc("/api/baseEncoder", handlers.BaseEncoderHandler)
 	handlers.EnableCORS(mux).ServeHTTP(w, r)
 }
