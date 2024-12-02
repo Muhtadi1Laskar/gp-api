@@ -34,6 +34,8 @@ func main() {
 	mux.HandleFunc("/cipher/baconCipher", handlers.BaconCipherHandler)
 	mux.HandleFunc("/encoder/binaryEncoder", handlers.BinaryEncoderHander)
 	mux.HandleFunc("/encoder/baseEncoder", handlers.BaseEncoderHandler)
+	mux.HandleFunc("/upload/file", handlers.HandleFileHash)
 	fmt.Println("Server running on 5000")
 	http.ListenAndServe(":5000", enableCORS(mux))
 }
+
