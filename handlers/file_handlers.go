@@ -46,19 +46,19 @@ func UploadFile(r *http.Request) (map[string]string, error) {
 	}
 	defer file.Close()
 
-	filePath := "File/Input/output.txt"
-	tempFile, err := os.Create(filePath)
-	if err != nil {
-		return nil, fmt.Errorf("unable to write to file: %v", err)
-	}
-	defer tempFile.Close()
+	// filePath := "File/Input/output.txt"
+	// tempFile, err := os.Create(filePath)
+	// if err != nil {
+	// 	return nil, fmt.Errorf("unable to write to file: %v", err)
+	// }
+	// defer tempFile.Close()
 
 	fileBytes, err := io.ReadAll(file)
 	if err != nil {
 		return nil, fmt.Errorf("unable to read file bytes %v", err)
 	}
 
-	tempFile.Write(fileBytes)
+	// tempFile.Write(fileBytes)
 
 	temp := map[string]string{
 		"message": string(fileBytes),
