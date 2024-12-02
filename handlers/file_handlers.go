@@ -5,7 +5,6 @@ import (
 	hashes "go-api/Hashes"
 	"io"
 	"net/http"
-	"os"
 )
 
 func HandleFileHash(w http.ResponseWriter, r *http.Request) {
@@ -17,10 +16,6 @@ func HandleFileHash(w http.ResponseWriter, r *http.Request) {
 
 	hash, err := hashes.HashData(fileText["message"], fileText["hash"])
 	if err != nil {
-		writeError(w, http.StatusBadRequest, err.Error())
-		return
-	}
-	if err := removeFile(); err != nil {
 		writeError(w, http.StatusBadRequest, err.Error())
 		return
 	}
@@ -46,19 +41,11 @@ func UploadFile(r *http.Request) (map[string]string, error) {
 	}
 	defer file.Close()
 
-	// filePath := "File/Input/output.txt"
-	// tempFile, err := os.Create(filePath)
-	// if err != nil {
-	// 	return nil, fmt.Errorf("unable to write to file: %v", err)
-	// }
-	// defer tempFile.Close()
 
 	fileBytes, err := io.ReadAll(file)
 	if err != nil {
 		return nil, fmt.Errorf("unable to read file bytes %v", err)
 	}
-
-	// tempFile.Write(fileBytes)
 
 	temp := map[string]string{
 		"message": string(fileBytes),
@@ -69,12 +56,4 @@ func UploadFile(r *http.Request) (map[string]string, error) {
 	}
 
 	return temp, nil
-}
-
-func removeFile() error {
-	err := os.Remove("File/Input/output.txt")
-	if err != nil {
-		return fmt.Errorf("unable to remove the file: %v", err)
-	}
-	return nil
 }
