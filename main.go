@@ -25,6 +25,7 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/hash", handlers.HashData)
+	mux.HandleFunc("/hash/verify", handlers.VerifyData)
 	mux.HandleFunc("/aes/encrypt", handlers.CipherAES)
 	mux.HandleFunc("/cipher/xor", handlers.CipherXOR)
 	mux.HandleFunc("/cipher/ceaserCipher", handlers.CeaserCipherHandler)
