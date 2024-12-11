@@ -42,7 +42,7 @@ func HashInput(input, hashName string) Identicon {
 	hash := hash(input, hashName)
 	return Identicon{
 		Hex: hash[:],
-		ImageSize: 350,
+		ImageSize: 250,
 		CellSize: 50,
 	}
 }
