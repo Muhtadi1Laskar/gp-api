@@ -5,9 +5,9 @@ import (
 	"net/http"
 )
 
-func HandlerBase64(w http.ResponseWriter, r *http.Request) {
+func HandlerIdenticon(w http.ResponseWriter, r *http.Request) {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/api/base64Encoder", handlers.BaseEncoderHandler)
+	mux.HandleFunc("/api/identicon", handlers.IdenticonHandler)
 	handlers.EnableCORS(mux).ServeHTTP(w, r)
 }
