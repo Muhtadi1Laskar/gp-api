@@ -17,7 +17,7 @@ import (
 	"golang.org/x/crypto/sha3"
 )
 
-func getHashFunc() map[string]func() (hash.Hash, error) {
+func GetHashFunc() map[string]func() (hash.Hash, error) {
 	return map[string]func() (hash.Hash, error){
 		"md5":         func() (hash.Hash, error) { return md5.New(), nil },
 		"sha256":      func() (hash.Hash, error) { return sha256.New(), nil },
@@ -42,7 +42,7 @@ func getHashFunc() map[string]func() (hash.Hash, error) {
 
 func HashData(message, hashName string) (string, error) {
 	formattedHashName := strings.ToLower(hashName)
-	hashList := getHashFunc()
+	hashList := GetHashFunc()
 	hashFunc, exists := hashList[formattedHashName]
 	if !exists {
 		return "", fmt.Errorf("unsupported hash algorithm: %s", hashName)

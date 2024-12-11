@@ -37,6 +37,7 @@ func main() {
 	mux.HandleFunc("/encoder/baseEncoder", handlers.BaseEncoderHandler)
 	mux.HandleFunc("/upload/hashFile", handlers.HandleFileHash)
 	mux.HandleFunc("/upload/cipherFile", handlers.HandleCipherFile)
+	mux.HandleFunc("/identicon", handlers.IdenticonHandler)
 	fmt.Println("Server running on 5000")
 	http.ListenAndServe(":5000", enableCORS(mux))
 }
