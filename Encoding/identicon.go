@@ -31,7 +31,7 @@ type Pixel struct {
 
 func hash(data, hashName string) []byte {
 	hashList := hashes.GetHashFunc()
-	hashFunc, _ := hashList[hashName]
+	hashFunc := hashList[hashName]
 	hasher, _ := hashFunc()
 	hasher.Write([]byte(data))
 
