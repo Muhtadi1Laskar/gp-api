@@ -51,7 +51,6 @@ func GetHashFunc() map[string]func() (hash.Hash, error) {
 	}
 }
 
-
 func HashData(message, hashName string) (string, error) {
 	hashList := GetHashFunc()
 	hashFunc, exists := hashList[strings.ToLower(hashName)]
